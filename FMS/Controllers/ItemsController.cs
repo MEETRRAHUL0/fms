@@ -19,7 +19,7 @@ namespace FMS.Controllers
         public async Task<ActionResult> Index()
         {
             var tbl_Items = db.tbl_Items.Include(t => t.tbl_ItemType).Include(t => t.tbl_ItemUnits).Include(t => t.tbl_vendor);
-            return View(await tbl_Items.ToListAsync());
+            return View(await tbl_Items.OrderByDescending(q=>q.ID).ToListAsync());
         }
 
         // GET: Items/Details/5

@@ -193,16 +193,25 @@
 
         <div class="col-md-12 ">
             <hr />
-            <div class="col-md-6 ">
+            <div class="col-md-3 ">
 
             </div>
-            <div class="col-md-6  noPadding ">
-                <div class="col-md-9 ">
+            <div class="col-md-9  noPadding ">
+                <div class="col-md-3 ">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.PaymentMode, "PaymentMode", htmlAttributes: new { @class = "control-label col-md-4" })
+                        @Html.LabelFor(model => model.PaymentMode, "Payment Mode", htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-7">
                             @Html.DropDownList("PaymentMode", null, "Please select", htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.PaymentMode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 ">
+                    <div class="form-group">
+                        @Html.Label("Amount", htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-7">
+                            @Html.TextBox("Amount",null,    new { @class = "form-control" })
+                            @*@Html.ValidationMessageFor(model => model.PaymentMode, "", new { @class = "text-danger" })*@
                         </div>
                     </div>
                 </div>
@@ -280,6 +289,11 @@
                 return false;
             }
 
+            if ($('#PaymentMode').val() == "") {
+                $("#PaymentMode").focus();
+                $("#PaymentMode").css("border-color", "#FF0000");
+                return false;
+            }
             //var d1 = $('#FormPurchase').serialize();
             //var data1 = $('#FormPurchase').serializeArray();
             var data = $('#FormPurchase').serializeArray().reduce(function (obj, item) {

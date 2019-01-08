@@ -20,7 +20,7 @@ namespace FMS.Controllers
         public async Task<ActionResult> Index()
         {
             var tbl_Sale = db.tbl_Sale.Include(t => t.tbl_vendor);
-            return View(await tbl_Sale.ToListAsync());
+            return View(await tbl_Sale.OrderByDescending(q => q.AutoID).ToListAsync());
         }
 
         public PartialViewResult LoadItems()

@@ -18,7 +18,7 @@ namespace FMS.Controllers
         // GET: Vendor
         public async Task<ActionResult> Index()
         {
-            return View(await db.tbl_vendor.ToListAsync());
+            return View(await db.tbl_vendor.OrderByDescending(q=>q.AutoID).ToListAsync());
         }
 
         // GET: Vendor/Details/5
@@ -86,6 +86,11 @@ namespace FMS.Controllers
             {
                 db.tbl_vendor.Add(tbl_vendor);
                 await db.SaveChangesAsync();
+
+                tbl_Sequence NewSequenceValue = Helper.GenericHelper.GetNextUpdatedData("tbl_Supplier");
+                db.Entry(NewSequenceValue).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+
                 return RedirectToAction("Index");
             }
 
@@ -101,6 +106,11 @@ namespace FMS.Controllers
             {
                 db.tbl_vendor.Add(tbl_vendor);
                 await db.SaveChangesAsync();
+
+                tbl_Sequence NewSequenceValue = Helper.GenericHelper.GetNextUpdatedData("tbl_Customer");
+                db.Entry(NewSequenceValue).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+
                 return RedirectToAction("Index");
             }
 
